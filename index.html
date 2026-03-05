@@ -131,6 +131,111 @@
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
 
+        /* --- HERO SLIDER --- */
+        .hero-slider {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            background: #050505;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(1.15);
+            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1.0);
+        }
+
+        .hero-slide.prev {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.2) blur(16px); /* Stronger blur for lightweight background */
+            opacity: 0.55;
+            transform: scale(1.1); /* Prevent blurred edges from showing */
+        }
+
+        .hero-slide-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 2.5rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+        }
+
+        .hero-slide.active .hero-slide-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-slide-label span {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-slide-counter {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-trademark {
+            position: absolute;
+            bottom: 0.6rem;
+            left: 2.5rem;
+            z-index: 15;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.9);
+            pointer-events: none;
+        }
+
+        /* Grain overlay on hero slider */
+        .hero-slider-grain {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: multiply;
+            background-color: rgba(0, 0, 0, 0.4);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+        }
+
         #main-scroller {
             height: 100dvh;
             width: 100%;
@@ -1485,6 +1590,20 @@
             justify-content: center !important;
         }
 
+        .hero-slide-label {
+            padding: 1.5rem !important;
+        }
+
+        .hero-slide-label span {
+            font-size: 9px !important;
+        }
+
+        .hero-trademark {
+            left: 1.5rem !important;
+            font-size: 7px !important;
+            bottom: 0.4rem !important;
+        }
+
         #tech-start h2 {
             font-size: 11vw !important;
             line-height: 1.1 !important;
@@ -1667,14 +1786,49 @@
 
         <!-- HERO -->
         <section id="hero" class="fixed-section flex items-center justify-center" data-index="0">
-            <div class="absolute inset-0 z-0" id="hero-bg">
-                <video id="hero-video" class="block w-full h-full object-cover" autoplay muted loop playsinline style="filter: saturate(1.2); transform: scale(1.15); opacity: 0.5;">
-                    <source src="Assets/Video/Hero/Hero_BG.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"); background-size: 128px 128px;"></div>
+            <div class="hero-slider" id="hero-slider">
+                <div class="hero-slide active" data-slide="0">
+                    <img src="Assets/Images/Game/TormentedSouls2_Hero.webp" alt="Tormented Souls II" draggable="false">
+                    <div class="hero-slide-label">
+                        <span class="hero-slide-counter">01 / 06</span>
+                    </div>
+                </div>
+                <div class="hero-slide" data-slide="1">
+                    <img src="Assets/Images/Game/GigaBash_Hero.webp" alt="GigaBash Mobile" draggable="false">
+                    <div class="hero-slide-label">
+                        <span class="hero-slide-counter">02 / 06</span>
+                    </div>
+                </div>
+                <div class="hero-slide" data-slide="2">
+                    <img src="Assets/Images/Game/MaidOfSkerVR_Hero.webp" alt="Maid of Sker VR" draggable="false">
+                    <div class="hero-slide-label">
+                        <span class="hero-slide-counter">03 / 06</span>
+                    </div>
+                </div>
+                <div class="hero-slide" data-slide="3">
+                    <img src="Assets/Images/Game/HoloAttack_Hero.webp" alt="Holo-Attack" draggable="false">
+                    <div class="hero-slide-label">
+                        <span class="hero-slide-counter">04 / 06</span>
+                    </div>
+                </div>
+                <div class="hero-slide" data-slide="4">
+                    <img src="Assets/Images/Game/LoanShark_Hero.webp" alt="Loan Shark" draggable="false">
+                    <div class="hero-slide-label">
+                        <span class="hero-slide-counter">05 / 06</span>
+                    </div>
+                </div>
+                <div class="hero-slide" data-slide="5">
+                    <img src="Assets/Images/Game/PortOfJumanah_Hero.webp" alt="Port of Jumanah" draggable="false">
+                    <div class="hero-slide-label">
+                        <span class="hero-slide-counter">06 / 06</span>
+                    </div>
+                </div>
+                <div class="hero-slider-grain"></div>
             </div>
 
             <div class="overlay-layer bg-[radial-gradient(circle_at_center,rgba(5,5,5,0)_0%,#050505_100%)]"></div>
+            
+            <div class="hero-trademark">All trademarks, logos, arts, and brand names are the property of their respective owners.</div>
             
             <div class="content-layer max-w-7xl w-full px-6 flex flex-col items-center justify-center text-center h-full mx-auto relative z-10 pointer-events-none">
                 <p class="reveal-hidden font-mono text-[10px] uppercase tracking-[0.4em] mb-4 text-zinc-400 font-bold">Welcome to my Portfolio Page!</p>
@@ -2472,7 +2626,7 @@
                     </p>
                     
                     <p class="text-zinc-400 text-[9px] font-mono tracking-widest">
-                        All trademarks, logos and brand names are the property of their respective owners.
+                        All trademarks, logos, arts, and brand names are the property of their respective owners.
                     </p>
                 </div>
             </div>
@@ -2598,9 +2752,44 @@
                     mainScroller.classList.add('loaded');
                     dockNav.classList.add('visible');
 
+                    // Start hero slider after loader finishes
+                    startHeroSlider();
+
                 }, 400); 
             }, 2000);
         });
+
+        // --- HERO SLIDER LOGIC ---
+        const SLIDE_DURATION = 4500; // ms per slide
+        let heroSlideIndex = 0;
+        let heroSlideTimer = null;
+
+        function startHeroSlider() {
+            const slides = document.querySelectorAll('.hero-slide');
+            if (!slides.length) return;
+
+            function goToSlide(newIndex) {
+                const prevSlide = slides[heroSlideIndex];
+                const nextSlide = slides[newIndex];
+
+                // Mark previous
+                prevSlide.classList.remove('active');
+                prevSlide.classList.add('prev');
+                setTimeout(() => prevSlide.classList.remove('prev'), 1200);
+
+                // Activate new
+                nextSlide.classList.add('active');
+                heroSlideIndex = newIndex;
+            }
+
+            function nextSlide() {
+                const next = (heroSlideIndex + 1) % slides.length;
+                goToSlide(next);
+            }
+
+            // Start auto-advance timer
+            heroSlideTimer = setInterval(nextSlide, SLIDE_DURATION);
+        }
 
         const mainScroller = document.getElementById('main-scroller');
         const sections = document.querySelectorAll('section');
