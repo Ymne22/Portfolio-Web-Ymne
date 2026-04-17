@@ -46,8 +46,26 @@
                     animation: {
                         'scroll-bounce': 'scrollBounce 2s ease-in-out infinite',
                         'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'tv-noise': 'tvNoise 0.25s steps(10) infinite',
+                        'grid-move-up': 'gridMoveUp 2s linear infinite',
                     },
                     keyframes: {
+                        gridMoveUp: {
+                            '0%': { backgroundPosition: '0px 0px' },
+                            '100%': { backgroundPosition: '0px -128px' },
+                        },
+                        tvNoise: {
+                            '0%, 100%': { backgroundPosition: '0% 0%' },
+                            '10%': { backgroundPosition: '-5% -10%' },
+                            '20%': { backgroundPosition: '-15% 5%' },
+                            '30%': { backgroundPosition: '7% -25%' },
+                            '40%': { backgroundPosition: '-5% 25%' },
+                            '50%': { backgroundPosition: '-15% 10%' },
+                            '60%': { backgroundPosition: '15% 0%' },
+                            '70%': { backgroundPosition: '0% 15%' },
+                            '80%': { backgroundPosition: '3% 35%' },
+                            '90%': { backgroundPosition: '-10% 10%' },
+                        },
                         scrollBounce: {
                             '0%, 100%': { transform: 'translateY(0)', opacity: '0.5' },
                             '50%': { transform: 'translateY(5px)', opacity: '1' },
@@ -144,125 +162,14 @@
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* --- HERO SLIDER --- */
-        .hero-slider {
+        /* --- HERO CRT CANVAS --- */
+        #hero-crt-canvas {
             position: absolute;
             inset: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
-            overflow: hidden;
-            background: #050505;
-        }
-
-        .hero-slide {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: scale(1.15);
-            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .hero-slide.active {
-            opacity: 1;
-            transform: scale(1.0);
-        }
-
-        .hero-slide.prev {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
             display: block;
-            filter: saturate(0) contrast(1.1) blur(16px);
-            opacity: 0.45;
-            transform: scale(1.1);
-        }
-
-        .hero-slide-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem 2.5rem;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            pointer-events: none;
-            z-index: 5;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-        }
-
-        .hero-slide.active .hero-slide-label {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hero-slide-label span {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .hero-slide-counter {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .hero-trademark {
-            position: absolute;
-            bottom: 0.6rem;
-            left: 2.5rem;
-            z-index: 15;
-            font-family: 'Space Grotesk', monospace;
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: rgba(255, 255, 255, 0.9);
-            pointer-events: none;
-        }
-
-        /* Grain overlay on hero slider */
-        .hero-slider-grain {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            opacity: 0.8;
-            mix-blend-mode: multiply;
-            background-color: rgba(0, 0, 0, 0.4);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
-        }
-
-        /* --- OLD TV / CRT EFFECTS --- */
-        .hero-crt-scanlines {
-            position: absolute;
-            inset: 0;
-            z-index: 3;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent 0px,
-                transparent 2px,
-                rgba(0, 0, 0, 0.15) 2px,
-                rgba(0, 0, 0, 0.15) 4px
-            );
-            opacity: 0.6;
         }
 
         .hero-crt-vignette {
@@ -270,39 +177,7 @@
             inset: 0;
             z-index: 4;
             pointer-events: none;
-            box-shadow: inset 0 0 150px 60px rgba(0, 0, 0, 0.85);
-        }
-
-        .hero-crt-flicker {
-            position: absolute;
-            inset: 0;
-            z-index: 3;
-            pointer-events: none;
-            background: rgba(255, 255, 255, 0.01);
-            animation: tvFlicker 0.15s infinite alternate;
-        }
-
-        @keyframes tvFlicker {
-            0%   { opacity: 0.97; }
-            50%  { opacity: 1; }
-            100% { opacity: 0.98; }
-        }
-
-        /* Subtle horizontal glitch line */
-        .hero-crt-glitch-line {
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.06);
-            z-index: 5;
-            pointer-events: none;
-            animation: glitchLine 8s linear infinite;
-        }
-
-        @keyframes glitchLine {
-            0%   { top: -2%; }
-            100% { top: 102%; }
+            box-shadow: inset 0 0 200px 80px rgba(0, 0, 0, 0.9);
         }
 
         #main-scroller {
@@ -520,11 +395,14 @@
             width: max-content;
             opacity: 0; 
             transform: translateX(-50%) translateY(20px);
-            transition: opacity 1s ease-out 1s, transform 1s ease-out 1s;
+            pointer-events: none;
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
         .dock-container.visible {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
 
         .dock {
@@ -1655,20 +1533,6 @@
             justify-content: center !important;
         }
 
-        .hero-slide-label {
-            padding: 1.5rem !important;
-        }
-
-        .hero-slide-label span {
-            font-size: 9px !important;
-        }
-
-        .hero-trademark {
-            left: 1.5rem !important;
-            font-size: 7px !important;
-            bottom: 0.4rem !important;
-        }
-
         #tech-start h2 {
             font-size: 11vw !important;
             line-height: 1.1 !important;
@@ -1727,6 +1591,49 @@
         .profile-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
         .profile-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
         .profile-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+        /* --- TEXT GLITCH EFFECT --- */
+        @keyframes text-glitch-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-1px, 0px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(1px, 0px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-1px, 1px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(1px, -1px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 0px); }
+            100% { clip-path: inset(30% 0 50% 0); transform: translate(0px, 0px); }
+        }
+        @keyframes text-glitch-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(1px, 0px); }
+            20% { clip-path: inset(30% 0 20% 0); transform: translate(-1px, 1px); }
+            40% { clip-path: inset(70% 0 10% 0); transform: translate(0px, -1px); }
+            60% { clip-path: inset(20% 0 50% 0); transform: translate(-1px, 0px); }
+            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 0px); }
+            100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 1px); }
+        }
+        .glitch-text-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-text-wrapper::before,
+        .glitch-text-wrapper::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            pointer-events: none;
+        }
+        .glitch-text-wrapper::before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            animation: text-glitch-1 2s infinite linear alternate-reverse;
+        }
+        .glitch-text-wrapper::after {
+            left: -2px;
+            text-shadow: -2px 0 cyan;
+            animation: text-glitch-2 3s infinite linear alternate-reverse;
+        }
     </style>
     
 <body class="antialiased selection:bg-white selection:text-black">
@@ -1857,66 +1764,18 @@
 
         <!-- HERO -->
         <section id="hero" class="fixed-section flex items-center justify-center" data-index="0">
-            <div class="hero-slider" id="hero-slider">
-                <div class="hero-slide active" data-slide="0">
-                    <img src="Assets/Images/Game/TormentedSouls2_Hero.webp" alt="Tormented Souls II" draggable="false">
-                    <div class="hero-slide-label">
-                        <span class="hero-slide-counter">01 / 06</span>
-                    </div>
-                </div>
-                <div class="hero-slide" data-slide="1">
-                    <img src="Assets/Images/Game/GigaBash_Hero.webp" alt="GigaBash Mobile" draggable="false">
-                    <div class="hero-slide-label">
-                        <span class="hero-slide-counter">02 / 06</span>
-                    </div>
-                </div>
-                <div class="hero-slide" data-slide="2">
-                    <img src="Assets/Images/Game/MaidOfSkerVR_Hero.webp" alt="Maid of Sker VR" draggable="false">
-                    <div class="hero-slide-label">
-                        <span class="hero-slide-counter">03 / 06</span>
-                    </div>
-                </div>
-                <div class="hero-slide" data-slide="3">
-                    <img src="Assets/Images/Game/HoloAttack_Hero.webp" alt="Holo-Attack" draggable="false">
-                    <div class="hero-slide-label">
-                        <span class="hero-slide-counter">04 / 06</span>
-                    </div>
-                </div>
-                <div class="hero-slide" data-slide="4">
-                    <img src="Assets/Images/Game/LoanShark_Hero.webp" alt="Loan Shark" draggable="false">
-                    <div class="hero-slide-label">
-                        <span class="hero-slide-counter">05 / 06</span>
-                    </div>
-                </div>
-                <div class="hero-slide" data-slide="5">
-                    <img src="Assets/Images/Game/PortofJumanah_Hero.webp" alt="Port of Jumanah" draggable="false">
-                    <div class="hero-slide-label">
-                        <span class="hero-slide-counter">06 / 06</span>
-                    </div>
-                </div>
-                <div class="hero-slider-grain"></div>
-                <div class="hero-crt-scanlines"></div>
-                <div class="hero-crt-flicker"></div>
-                <div class="hero-crt-glitch-line"></div>
-            </div>
+            <canvas id="hero-crt-canvas"></canvas>
 
             <div class="overlay-layer bg-[radial-gradient(circle_at_center,rgba(5,5,5,0)_0%,#050505_100%)]"></div>
             <div class="hero-crt-vignette"></div>
             
-            <div class="hero-trademark">All trademarks, logos, arts, and brand names are the property of their respective owners.</div>
-            
             <div class="content-layer max-w-7xl w-full px-6 flex flex-col items-center justify-center text-center h-full mx-auto relative z-10 pointer-events-none">
-                <p class="reveal-hidden font-mono text-[10px] uppercase tracking-[0.4em] mb-4 text-zinc-500 font-bold">Welcome to my Portfolio Page!</p>
-                
-                <h1 class="reveal-hidden stagger-1 text-[16vw] md:text-[10rem] font-black tracking-tighter text-white uppercase leading-none" style="text-shadow: 0 0 40px rgba(255,255,255,0.15), 0 0 80px rgba(255,255,255,0.05);">YMNE</h1>
-                
-                <div class="reveal-hidden stagger-2 h-px w-24 bg-zinc-500 mx-auto my-8"></div>
-                <p class="reveal-hidden stagger-3 font-mono text-[10px] md:text-sm uppercase tracking-widest text-zinc-400 font-bold">Technical Artist, Graphics Programmer, &amp; Artist</p>
-            </div>
-            
-            <div class="content-layer absolute bottom-28 left-0 w-full flex flex-col items-center gap-2 text-zinc-600 animate-scroll-bounce z-20 pointer-events-none">
-                <span class="text-[9px] font-mono uppercase tracking-[0.3em]">Scroll to Start</span>
-                <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                <div class="flex flex-col items-center gap-2 mt-20 animate-[pulse_3s_ease-in-out_infinite]">
+                    <p class="text-zinc-400 font-mono text-sm md:text-base tracking-[0.5em] uppercase pl-2">Welcome</p>
+                    <span class="text-2xl md:text-4xl font-black font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] pl-2 md:pl-3">
+                        SCROLL TO START
+                    </span>
+                </div>
             </div>
         </section>
 
@@ -1924,7 +1783,13 @@
         <section id="profile" class="fixed-section flex items-center justify-center bg-dark relative overflow-hidden" data-index="1">
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/30 via-dark to-dark opacity-80"></div>
-                <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 128px 128px;"></div>
+                <div class="absolute top-0 left-0 w-full h-full opacity-25 mix-blend-screen pointer-events-none animate-tv-noise" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 1024px 1024px;"></div>
+                
+                <!-- CRT Scanlines -->
+                <div class="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
+                
+                <!-- CRT Vignette -->
+                <div class="hero-crt-vignette"></div>
             </div>
 
             <div class="content-layer profile-inner relative z-10 w-full h-full flex flex-col items-center justify-center py-12 lg:py-0">
@@ -1981,10 +1846,19 @@
 
 
         <!-- ROADMAP -->
-        <section id="roadmap" class="long-section bg-black relative" data-index="2">
-            <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+        <section id="roadmap" class="long-section bg-black relative overflow-hidden" data-index="2">
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <!-- Moving Grid -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:32px_32px] animate-grid-move-up"></div>
+                
+                <!-- CRT Scanlines -->
+                <div class="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
+ 
+                <!-- CRT Vignette -->
+                <div class="hero-crt-vignette"></div>
+            </div>
             
-            <div class="content-layer max-w-5xl w-full mx-auto px-6 flex flex-col items-center">
+            <div class="content-layer max-w-5xl w-full mx-auto px-6 flex flex-col items-center relative z-10">
                 <div class="mb-16 text-center">
                     <h2 class="reveal-hidden text-5xl md:text-6xl font-black uppercase text-white mb-2 tracking-tight">Development <span class="text-zinc-600">Roadmap</span></h2>
                     <p class="reveal-hidden stagger-1 text-zinc-500 font-mono text-xs uppercase tracking-[0.3em]">Past, Present & Future</p>
@@ -2716,6 +2590,14 @@
 
         <!-- CONTACT -->
         <section id="contact" class="min-h-[100dvh] flex flex-col justify-center bg-black relative overflow-hidden pb-32" data-index="6">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/30 via-dark to-dark opacity-80"></div>
+                <div class="absolute top-0 left-0 w-full h-full opacity-25 mix-blend-screen pointer-events-none animate-tv-noise" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 1024px 1024px;"></div>
+                
+                <!-- CRT Scanlines -->
+                <div class="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
+                
+                <!-- CRT Vignette -->
+                <div class="hero-crt-vignette"></div>
              <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-black to-black"></div>
 
              <div class="content-layer w-full max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -2872,50 +2754,266 @@
                     shutterBottom.style.transform = 'translateY(100%)';
                     
                     mainScroller.classList.add('loaded');
-                    dockNav.classList.add('visible');
 
-                    // Start hero slider after loader finishes
-                    startHeroSlider();
+                    // Check active section to see if dock should be shown initially
+                    const activeSec = document.querySelector('section.active-section');
+                    if (activeSec && activeSec.id !== 'hero') {
+                        dockNav.classList.add('visible');
+                    } else if (!activeSec) {
+                         // Default fallback if observer hasn't fired
+                         if (window.scrollY > window.innerHeight) {
+                              dockNav.classList.add('visible');
+                         }
+                    }
+
+                    // Start hero CRT after loader finishes
+                    HeroCRT.init();
+                    HeroCRT.start();
 
                 }, 400); 
             }, 2000);
         });
 
-        // --- HERO SLIDER LOGIC ---
-        const SLIDE_DURATION = 4500; // ms per slide
-        let heroSlideIndex = 0;
-        let heroSlideTimer = null;
+        // --- HERO CRT WEGL LOGIC ---
+        const HeroCRT = {
+            canvas: null,
+            gl: null,
+            program: null,
+            animationFrame: null,
+            startTime: 0,
+            bootProgress: 0,
+            isBooting: false,
 
-        function startHeroSlider() {
-            const slides = document.querySelectorAll('.hero-slide');
-            if (!slides.length) return;
+            init() {
+                this.canvas = document.getElementById('hero-crt-canvas');
+                if (!this.canvas) return;
+                this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+                if (!this.gl) return;
 
-            function goToSlide(newIndex) {
-                const prevSlide = slides[heroSlideIndex];
-                const nextSlide = slides[newIndex];
+                this.setupShaders();
+                this.setupBuffers();
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+            },
 
-                // Mark previous
-                prevSlide.classList.remove('active');
-                prevSlide.classList.add('prev');
-                setTimeout(() => prevSlide.classList.remove('prev'), 1200);
+            setupShaders() {
+                const vsSource = `
+                    attribute vec2 position;
+                    varying vec2 vUv;
+                    void main() {
+                        vUv = position * 0.5 + 0.5;
+                        gl_Position = vec4(position, 0.0, 1.0);
+                    }
+                `;
 
-                // Activate new
-                nextSlide.classList.add('active');
-                heroSlideIndex = newIndex;
+                const fsSource = `
+                    precision mediump float;
+                    uniform float iTime;
+                    uniform vec2 iResolution;
+                    uniform float bootProgress;
+                    varying vec2 vUv;
+
+                    float rand(vec2 co) {
+                        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+                    }
+                    
+                    vec2 crtCurve(vec2 uv) {
+                        uv = uv * 2.0 - 1.0;
+                        vec2 offset = abs(uv.yx) / vec2(5.0, 3.5);
+                        uv = uv + uv * offset * offset;
+                        uv = uv * 0.5 + 0.5;
+                        return uv;
+                    }
+
+                    vec3 smpteBars(vec2 uv) {
+                        vec3 c = vec3(0.0);
+                        if (uv.y > 0.33) {
+                            float b = floor(uv.x * 7.0);
+                            if(b==0.0) c = vec3(0.75, 0.75, 0.75);
+                            else if(b==1.0) c = vec3(0.75, 0.75, 0.0);
+                            else if(b==2.0) c = vec3(0.0, 0.75, 0.75);
+                            else if(b==3.0) c = vec3(0.0, 0.75, 0.0);
+                            else if(b==4.0) c = vec3(0.75, 0.0, 0.75);
+                            else if(b==5.0) c = vec3(0.75, 0.0, 0.0);
+                            else c = vec3(0.0, 0.0, 0.75);
+                        } else if(uv.y > 0.25) {
+                            float b = floor(uv.x * 7.0);
+                            if(b==0.0) c = vec3(0.0, 0.0, 0.75);
+                            else if(b==1.0) c = vec3(0.05);
+                            else if(b==2.0) c = vec3(0.75, 0.0, 0.75);
+                            else if(b==3.0) c = vec3(0.05);
+                            else if(b==4.0) c = vec3(0.0, 0.75, 0.75);
+                            else if(b==5.0) c = vec3(0.05);
+                            else c = vec3(0.75, 0.75, 0.75);
+                        } else {
+                            float b = floor(uv.x * 6.0);
+                            if(b==0.0) c = vec3(0.0, 0.2, 0.4);
+                            else if(b==1.0) c = vec3(1.0);
+                            else if(b==2.0) c = vec3(0.1, 0.0, 0.3);
+                            else if(b==3.0) c = vec3(0.05);
+                            else if(b==4.0) c = vec3(0.0);
+                            else c = vec3(0.05);
+                        }
+                        return c;
+                    }
+
+                    void main() {
+                        vec2 uv = vUv;
+                        
+                        // Boot Sequence scaling - snap much faster
+                        float verticalScale = smoothstep(0.05, 0.15, bootProgress);
+                        if (bootProgress > 0.0 && bootProgress < 1.0) {
+                            uv = (uv - 0.5) / max(verticalScale, 0.001) + 0.5;
+                        }
+
+                        vec2 crtUv = crtCurve(uv);
+
+                        if (crtUv.x < 0.0 || crtUv.x > 1.0 || crtUv.y < 0.0 || crtUv.y > 1.0) {
+                            gl_FragColor = vec4(0.05, 0.05, 0.05, 1.0);
+                            return;
+                        }
+
+                        // Glitch distortions (less tiled, more continuous tearing)
+                        float glitchY = fract(iTime * 0.15);
+                        if (abs(crtUv.y - glitchY) < 0.03) {
+                            crtUv.x += (rand(vec2(iTime)) - 0.5) * 0.05;
+                        }
+                        
+                        // Random wavy screen tear (VHS style)
+                        if (rand(vec2(floor(iTime * 12.0), 0.0)) > 0.95) {
+                            crtUv.x += sin(crtUv.y * 150.0 + iTime * 20.0) * 0.02 * rand(vec2(iTime));
+                        }
+
+                        // Sharp, thin horizontal line jumps
+                        if (rand(vec2(iTime, floor(crtUv.y * 200.0))) > 0.995) {
+                            crtUv.x += (rand(vec2(crtUv.y, iTime)) - 0.5) * 0.08;
+                        }
+
+                        // Sample SMPTE Test Bars
+                        vec3 col = smpteBars(crtUv);
+
+                        // Desaturate the test bars heavily
+                        float gray = dot(col, vec3(0.299, 0.587, 0.114));
+                        col = mix(vec3(gray), col, 0.12); // 12% saturation
+
+                        // Occasional glitch color splitting
+                        if (rand(vec2(floor(iTime * 8.0), floor(crtUv.y * 80.0))) > 0.97) {
+                            col.r = mix(vec3(gray), smpteBars(crtUv + vec2(0.015, 0.0)), 0.12).r;
+                            col.b = mix(vec3(gray), smpteBars(crtUv - vec2(0.015, 0.0)), 0.12).b;
+                        }
+
+                        // Multiple CRT Scanlines (smaller, more varied)
+                        float scanline = sin(crtUv.y * iResolution.y * 3.0) * 0.04;
+                        scanline += sin(crtUv.y * iResolution.y * 1.5) * 0.02;
+                        scanline += sin((crtUv.y - iTime * 0.05) * 100.0) * 0.01;
+                        col -= scanline;
+
+                        // Phosphor Grid
+                        float grid = sin(crtUv.x * iResolution.x * 1.5) * sin(crtUv.y * iResolution.y * 1.5);
+                        col += grid * 0.03;
+
+                        // White Noise
+                        col += (rand(crtUv * iTime) - 0.5) * 0.08;
+
+                        // Edge Vignetting for the Tube
+                        float edge = min(crtUv.x, 1.0 - crtUv.x) * min(crtUv.y, 1.0 - crtUv.y);
+                        float vignette = smoothstep(0.0, 0.05, edge);
+                        col *= vignette;
+
+                        // Boot sequence flashes and line
+                        if (bootProgress < 1.0) {
+                            if (bootProgress < 0.05) {
+                                // Intense thin horizontal line gathering power
+                                float intensity = smoothstep(0.01, 0.0, abs(vUv.y - 0.5)) * (bootProgress / 0.05);
+                                col = mix(vec3(0.0), vec3(1.0), intensity);
+                            } else {
+                                // Screen flash and fade quickly
+                                float flash = smoothstep(0.3, 0.05, bootProgress);
+                                col += vec3(flash * 0.9);
+                            }
+                        }
+
+                        gl_FragColor = vec4(col, 1.0);
+                    }
+                `;
+
+                const vs = this.createShader(this.gl.VERTEX_SHADER, vsSource);
+                const fs = this.createShader(this.gl.FRAGMENT_SHADER, fsSource);
+
+                this.program = this.gl.createProgram();
+                this.gl.attachShader(this.program, vs);
+                this.gl.attachShader(this.program, fs);
+                this.gl.linkProgram(this.program);
+                
+                this.positionLocation = this.gl.getAttribLocation(this.program, "position");
+                this.u_time = this.gl.getUniformLocation(this.program, "iTime");
+                this.u_resolution = this.gl.getUniformLocation(this.program, "iResolution");
+                this.u_bootProgress = this.gl.getUniformLocation(this.program, "bootProgress");
+            },
+
+            createShader(type, source) {
+                const shader = this.gl.createShader(type);
+                this.gl.shaderSource(shader, source);
+                this.gl.compileShader(shader);
+                if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+                    console.error('Shader compile error:', this.gl.getShaderInfoLog(shader));
+                }
+                return shader;
+            },
+
+            setupBuffers() {
+                const positions = new Float32Array([
+                    -1.0, -1.0, 1.0, -1.0, -1.0,  1.0,
+                    -1.0,  1.0, 1.0, -1.0, 1.0,  1.0,
+                ]);
+                this.buffer = this.gl.createBuffer();
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffer);
+                this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.STATIC_DRAW);
+            },
+
+            resize() {
+                if (!this.canvas) return;
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+            },
+
+            start() {
+                if (!this.gl) return;
+                this.startTime = performance.now();
+                this.isBooting = true;
+                this.bootProgress = 0.0;
+                this.renderLoop();
+            },
+
+            renderLoop(time = 0) {
+                if (this.isBooting) {
+                    const elapsed = Math.max(0, performance.now() - this.startTime);
+                    this.bootProgress = Math.min(elapsed / 600.0, 1.0); // 0.6 second boot for an instant flash
+                    if (this.bootProgress >= 1.0) {
+                        this.isBooting = false;
+                    }
+                }
+
+                this.gl.useProgram(this.program);
+                
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffer);
+                this.gl.enableVertexAttribArray(this.positionLocation);
+                this.gl.vertexAttribPointer(this.positionLocation, 2, this.gl.FLOAT, false, 0, 0);
+
+                this.gl.uniform1f(this.u_time, time * 0.001);
+                this.gl.uniform2f(this.u_resolution, this.canvas.width, this.canvas.height);
+                this.gl.uniform1f(this.u_bootProgress, this.bootProgress);
+
+                this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+                this.animationFrame = requestAnimationFrame((t) => this.renderLoop(t));
             }
-
-            function nextSlide() {
-                const next = (heroSlideIndex + 1) % slides.length;
-                goToSlide(next);
-            }
-
-            // Start auto-advance timer
-            heroSlideTimer = setInterval(nextSlide, SLIDE_DURATION);
-        }
+        };
 
         const mainScroller = document.getElementById('main-scroller');
         const sections = document.querySelectorAll('section');
         const dockIcons = document.querySelectorAll('.dock-icon');
+        const dockContainer = document.getElementById('dock-nav');
         
         function scrollToSection(id) {
             const el = document.getElementById(id);
@@ -2967,6 +3065,14 @@
                          if(idx == 3) navId = 'games-start';
                          if(idx == 4) navId = 'tech-start';
                          if(idx == 5) navId = 'art-showcase'; // Map both art sections to same dock icon
+                    }
+
+                    if (dockContainer) {
+                        if (navId === 'hero') {
+                            dockContainer.classList.remove('visible');
+                        } else {
+                            dockContainer.classList.add('visible');
+                        }
                     }
 
                     dockIcons.forEach(icon => {
