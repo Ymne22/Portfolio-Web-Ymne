@@ -1783,7 +1783,7 @@
         <section id="profile" class="fixed-section flex items-center justify-center bg-dark relative overflow-hidden" data-index="1">
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/30 via-dark to-dark opacity-80"></div>
-                <div class="absolute top-0 left-0 w-full h-full opacity-25 mix-blend-screen pointer-events-none animate-tv-noise" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 1024px 1024px;"></div>
+                <div class="absolute top-0 left-0 w-full h-full opacity-[0.15] lg:opacity-25 pointer-events-none animate-tv-noise" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 1024px 1024px; will-change: background-position;"></div>
                 
                 <!-- CRT Scanlines -->
                 <div class="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
@@ -1815,12 +1815,12 @@
                             <div class="h-[1px] w-12 bg-zinc-700/50 hidden lg:block"></div>
                         </div>
 
-                        <h2 class="hero-name reveal-hidden stagger-2 text-4xl md:text-6xl lg:text-[5rem] font-black mb-6 lg:mb-8 leading-none uppercase text-white tracking-tighter mix-blend-screen drop-shadow-lg">
+                        <h2 class="hero-name reveal-hidden stagger-2 text-4xl md:text-6xl lg:text-[5rem] font-black mb-6 lg:mb-8 leading-none uppercase text-white tracking-tighter">
                             About Me
                         </h2>
 
                         <!-- Scrollable Text Area -->
-                        <div class="reveal-hidden stagger-3 w-full relative [mask-image:linear-gradient(to_bottom,white_80%,transparent)] lg:[mask-image:none]">
+                        <div class="reveal-hidden stagger-3 w-full relative">
                             <div class="hero-bio profile-scroll max-h-[35vh] md:max-h-[35vh] lg:max-h-none overflow-y-auto lg:overflow-visible pr-2 lg:pr-0 space-y-6 text-left relative z-0 pb-32 lg:pb-0 w-full custom-scrollbar pointer-events-auto">
                                 <p class="text-zinc-400 text-xs md:text-sm lg:text-base leading-relaxed font-sans mt-4">
                                     So, my pen name is <span class="text-zinc-200 font-medium">‘Ymne’</span>, but yeah… people get confused by it a lot. Just call me <span class="text-white font-bold">‘Myko’</span> it’s my nickname and way easier. And yeah, pen name and nickname are different, you know. I definitely prefer someone calling with it.
@@ -1838,6 +1838,9 @@
                                     And yeah, I also make <span class="text-zinc-200 font-medium">2D and 3D art and animation.</span>
                                 </p>
                             </div>
+                            
+                            <!-- Efficient Mobile Fade Out -->
+                            <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none lg:hidden"></div>
                         </div>
                     </div>
                 </div>
@@ -2591,13 +2594,7 @@
         <!-- CONTACT -->
         <section id="contact" class="min-h-[100dvh] flex flex-col justify-center bg-black relative overflow-hidden pb-32" data-index="6">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/30 via-dark to-dark opacity-80"></div>
-                <div class="absolute top-0 left-0 w-full h-full opacity-25 mix-blend-screen pointer-events-none animate-tv-noise" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 1024px 1024px;"></div>
                 
-                <!-- CRT Scanlines -->
-                <div class="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
-                
-                <!-- CRT Vignette -->
-                <div class="hero-crt-vignette"></div>
              <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-black to-black"></div>
 
              <div class="content-layer w-full max-w-4xl mx-auto px-6 text-center relative z-10">
