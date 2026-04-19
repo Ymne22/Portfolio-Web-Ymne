@@ -1574,35 +1574,41 @@
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
-            padding-top: 7rem !important;
-            padding-bottom: 12rem !important; 
+            padding-top: 4rem !important;
+            padding-bottom: 4rem !important; 
         }
 
         #contact h2 {
-            margin-bottom: 1rem !important;
+            margin-bottom: 0.75rem !important;
         }
         
         #contact .interactive {
-             margin-bottom: 2.5rem !important;
+             margin-bottom: 1.5rem !important;
         }
 
+        #contact .content-layer > p.font-mono.mb-12 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        /* Selecting the social links container */
         #contact .flex.gap-8 {
-            margin-bottom: 2.5rem !important;
+            margin-bottom: 1.5rem !important;
             flex-direction: column !important;
-            gap: 1rem !important;
+            gap: 0.5rem !important;
             width: 100% !important;
+            align-items: center !important;
         }
 
         #contact .flex.gap-8 a {
             display: block !important;
             width: 100% !important;
             max-width: 280px !important;
-            padding: 1.25rem 0 !important;
-            border: 1px solid #27272a !important;
-            background: rgba(255,255,255,0.03) !important;
+            padding: 1rem 0 !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            background: rgba(255,255,255,0.02) !important;
             text-align: center !important;
             color: #fff !important;
-            font-size: 0.8rem !important;
+            font-size: 0.75rem !important;
             letter-spacing: 0.2em !important;
         }
 
@@ -2132,7 +2138,7 @@
                         "heroImage": "Assets/Images/Game/PortofJumanah_Hero.webp",
                         "heroImageDepth": "Assets/Images/Game/PortofJumanah_Hero_Depth.webp",
                         "logoImage": "Assets/Images/Game/PortofJumanah_Logo.webp",
-                        "platforms": ["playstation", "xbox", "steam", "switch"],
+                        "platforms": ["playstation", "steam"],
                         "engine": "Unreal Engine 5.5",
                         "publisher": "Red Dunes Games",
                         "developer": "Agate International & Red Dunes Games",
