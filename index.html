@@ -141,22 +141,23 @@
         .loader-bar-track {
             width: 120px;
             height: 2px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.05);
             overflow: hidden;
             position: relative;
         }
 
         .loader-bar-fill {
             height: 100%;
-            background: white;
-            width: 0%;
-            animation: fillBar 2s ease-in-out forwards;
+            background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 80%, rgba(255,255,255,1) 100%);
+            width: 60%;
+            position: absolute;
+            box-shadow: 2px 0 8px rgba(255, 255, 255, 0.8);
+            animation: crtScan 1.2s linear infinite;
         }
 
-        @keyframes fillBar {
-            0% { width: 0%; }
-            100% { width: 100%; }
+        @keyframes crtScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
         }
 
         ::-webkit-scrollbar { display: none; }
@@ -183,7 +184,7 @@
         #main-scroller {
             height: 100dvh;
             width: 100%;
-            overflow-y: scroll;
+            overflow-y: hidden;
             overflow-x: hidden;
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
@@ -1738,32 +1739,10 @@
         </div>
     </div>
 
-    <!-- GAME SECTION PAGINATION DOTS -->
-    <div class="game-pagination" id="game-pagination">
-        <button class="game-dot" data-game-index="0" data-title="Tormented Souls II"></button>
-        <button class="game-dot" data-game-index="1" data-title="GigaBash Mobile"></button>
-        <button class="game-dot" data-game-index="2" data-title="Maid of Sker VR"></button>
-        <button class="game-dot" data-game-index="3" data-title="Loan Shark"></button>
-        <button class="game-dot" data-game-index="4" data-title="Holo-Attack"></button>
-        <button class="game-dot" data-game-index="5" data-title="Archive"></button>
-    </div>
-
-    <!-- SHADER SECTION PAGINATION DOTS -->
-    <div class="shader-pagination" id="shader-pagination">
-        <button class="shader-dot" data-shader-index="0" data-title="YmneLightingFX"></button>
-        <button class="shader-dot" data-shader-index="1" data-title="Procedural Sky"></button>
-        <button class="shader-dot" data-shader-index="2" data-title="Lab Experiments"></button>
-    </div>
-
-    <!-- ART SECTION PAGINATION DOTS -->
-    <div class="art-pagination" id="art-pagination">
-        <button class="art-dot" data-art-index="0" data-title="Visual Arts"></button>
-    </div>
-
     <main id="main-scroller">
 
         <!-- HERO -->
-        <section id="hero" class="fixed-section flex items-center justify-center" data-index="0">
+        <section id="hero" class="fixed-section flex items-center justify-center cursor-pointer transition-opacity duration-150 hover:opacity-80" data-index="0" onclick="launchPortfolio()">
             <canvas id="hero-crt-canvas"></canvas>
 
             <div class="overlay-layer bg-[radial-gradient(circle_at_center,rgba(5,5,5,0)_0%,#050505_100%)]"></div>
@@ -1773,7 +1752,7 @@
                 <div class="flex flex-col items-center gap-2 mt-20 animate-[pulse_3s_ease-in-out_infinite]">
                     <p class="text-zinc-400 font-mono text-sm md:text-base tracking-[0.5em] uppercase pl-2">Welcome</p>
                     <span class="text-2xl md:text-4xl font-black font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] pl-2 md:pl-3">
-                        SCROLL TO START
+                        CLICK TO START
                     </span>
                 </div>
             </div>
@@ -2014,78 +1993,8 @@
             
             <div class="content-layer masonry-grid">
 
-                <!-- Tormented Souls II -->
-                <div class="masonry-item masonry-2x2 masonry-featured" data-preview-id="tormented-souls-2">
-                    <script type="application/json" data-for="tormented-souls-2">
-                    {
-                        "title": "Tormented Souls II",
-                        "status": "Released",
-                        "description": "Explore the decaying remains of the secluded Villa Hess, use improvised weapons to confront terrifying creatures, and bend the fabric of reality to save your sister from a twisted cult.",
-                        "heroImage": "Assets/Images/Game/TormentedSouls2_Hero.webp",
-                        "heroImageDepth": "Assets/Images/Game/TormentedSouls2_Hero_Depth.webp",
-                        "logoImage": "Assets/Images/Game/TormentedSouls2_Logo.webp",
-                        "platforms": ["playstation", "xbox", "steam", "gog", "epic"],
-                        "engine": "Unreal Engine 5.5",
-                        "publisher": "PQube",
-                        "developer": "Dual Effect",
-                        "role": "Technical Artist",
-                        "releaseDate": "23 Oct 2025",
-                        "link": "https://pqube.co.uk/games/tormented-souls-2/"
-                    }
-                    </script>
-                    <img src="Assets/Images/Game/TormentedSouls2_Hero.webp" alt="Tormented Souls II" draggable="false" loading="lazy">
-                    <div class="masonry-overlay">
-                        <h4>Tormented Souls II</h4>
-                        <div class="masonry-info">
-                            <span>Released • Technical Artist</span>
-                            <button class="view-btn">View</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kanna & Lia -->
-                <div class="masonry-item masonry-2x1" data-href="https://ymne22.itch.io/kanna-and-lia-the-witch">
-                    <video data-lazy-src="Assets/Video/Game/Kanna_Hero.webm" loop muted playsinline preload="none"></video>
-                    <div class="masonry-overlay">
-                        <h4>Kanna and Lia the Witch</h4>
-                        <div class="masonry-info">
-                            <span>Game Jam • Self Development</span>
-                            <button class="view-btn">View</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Maid of Sker VR -->
-                <div class="masonry-item masonry-2x2" data-preview-id="maid-of-sker-vr">
-                    <script type="application/json" data-for="maid-of-sker-vr">
-                    {
-                        "title": "Maid of Sker VR",
-                        "status": "Released",
-                        "description": "Maid of Sker VR is a survival horror game, set in a remote hotel with a gory and macabre history from Welsh folklore. Brave the nightmares of the Quiet Ones. Do not panic…don't even breathe!",
-                        "heroImage": "Assets/Images/Game/MaidOfSkerVR_Hero.webp",
-                        "heroImageDepth": "Assets/Images/Game/MaidOfSkerVR_Hero_Depth.webp",
-                        "logoImage": "Assets/Images/Game/MaidOfSkerVR_Logo.webp",
-                        "platforms": ["playstation", "meta", "steam"],
-                        "engine": "Unity Engine 6.0 HDRP & URP",
-                        "publisher": "Wales Interactive",
-                        "developer": "Wales Interactive",
-                        "role": "Technical Artist",
-                        "releaseDate": "17 Mar 2026",
-                        "link": "https://www.walesinteractive.com/maidofskervr"
-                    }
-                    </script>
-                    <img src="Assets/Images/Game/MaidOfSkerVR_Hero.webp" alt="Maid of Sker VR" draggable="false" loading="lazy">
-                    <div class="masonry-overlay">
-                        <h4>Maid of Sker VR</h4>
-                        <div class="masonry-info">
-                            <span>Released • Technical Artist</span>
-                            <button class="view-btn">View</button>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- GigaBash Mobile -->
-                <div class="masonry-item masonry-2x2" data-preview-id="gigabash-mobile">
+                <div class="masonry-item masonry-3x2" data-preview-id="gigabash-mobile">
                     <script type="application/json" data-for="gigabash-mobile">
                     {
                         "title": "GigaBash Mobile",
@@ -2113,28 +2022,30 @@
                     </div>
                 </div>
 
-                <!-- Holo-Attack -->
-                <div class="masonry-item masonry-2x2" data-preview-id="holo-attack">
-                    <script type="application/json" data-for="holo-attack">
+                <!-- Tormented Souls II -->
+                <div class="masonry-item masonry-3x2 masonry-featured" data-preview-id="tormented-souls-2">
+                    <script type="application/json" data-for="tormented-souls-2">
                     {
-                        "title": "HOLO-ATTACK (DEMO)",
+                        "title": "Tormented Souls II",
                         "status": "Released",
-                        "description": "HoloAttack! is a fast-paced combo-stacking game where you demolish landmarks and buildings using unique skills on each holo-myth characters. Note: Canceled since Gura has already graduated and Ame is now just affiliated.",
-                        "heroImage": "Assets/Images/Game/HoloAttack_Hero.webp",
-                        "heroImageDepth": "Assets/Images/Game/HoloAttack_Hero_Depth.webp",
-                        "platforms": ["itch"],
-                        "engine": "Unity Engine 6.0 HDRP",
-                        "publisher": "Ymne Game",
-                        "developer": "Ymne Game",
-                        "role": "Main Developer",
-                        "link": "https://ymne22.itch.io/project-hl-atk"
+                        "description": "Explore the decaying remains of the secluded Villa Hess, use improvised weapons to confront terrifying creatures, and bend the fabric of reality to save your sister from a twisted cult.",
+                        "heroImage": "Assets/Images/Game/TormentedSouls2_Hero.webp",
+                        "heroImageDepth": "Assets/Images/Game/TormentedSouls2_Hero_Depth.webp",
+                        "logoImage": "Assets/Images/Game/TormentedSouls2_Logo.webp",
+                        "platforms": ["playstation", "xbox", "steam", "gog", "epic"],
+                        "engine": "Unreal Engine 5.5",
+                        "publisher": "PQube",
+                        "developer": "Dual Effect",
+                        "role": "Technical Artist",
+                        "releaseDate": "23 Oct 2025",
+                        "link": "https://pqube.co.uk/games/tormented-souls-2/"
                     }
                     </script>
-                    <img src="Assets/Images/Game/HoloAttack_Hero.webp" alt="Holo-Attack (Demo)" draggable="false" loading="lazy">
+                    <img src="Assets/Images/Game/TormentedSouls2_Hero.webp" alt="Tormented Souls II" draggable="false" loading="lazy">
                     <div class="masonry-overlay">
-                        <h4>Holo-Attack (Demo)</h4>
+                        <h4>Tormented Souls II</h4>
                         <div class="masonry-info">
-                            <span>Released • Self Development</span>
+                            <span>Released • Technical Artist</span>
                             <button class="view-btn">View</button>
                         </div>
                     </div>
@@ -2169,8 +2080,35 @@
                     </div>
                 </div>
 
+                <!-- Holo-Attack -->
+                <div class="masonry-item masonry-2x2" data-preview-id="holo-attack">
+                    <script type="application/json" data-for="holo-attack">
+                    {
+                        "title": "HOLO-ATTACK (DEMO)",
+                        "status": "Released",
+                        "description": "HoloAttack! is a fast-paced combo-stacking game where you demolish landmarks and buildings using unique skills on each holo-myth characters. Note: Canceled since Gura has already graduated and Ame is now just affiliated.",
+                        "heroImage": "Assets/Images/Game/HoloAttack_Hero.webp",
+                        "heroImageDepth": "Assets/Images/Game/HoloAttack_Hero_Depth.webp",
+                        "platforms": ["itch"],
+                        "engine": "Unity Engine 6.0 HDRP",
+                        "publisher": "Ymne Game",
+                        "developer": "Ymne Game",
+                        "role": "Main Developer",
+                        "link": "https://ymne22.itch.io/project-hl-atk"
+                    }
+                    </script>
+                    <img src="Assets/Images/Game/HoloAttack_Hero.webp" alt="Holo-Attack (Demo)" draggable="false" loading="lazy">
+                    <div class="masonry-overlay">
+                        <h4>Holo-Attack (Demo)</h4>
+                        <div class="masonry-info">
+                            <span>Released • Self Development</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Port of Jumanah -->
-                <div class="masonry-item masonry-2x1 masonry-featured" data-preview-id="port-of-jumanah">
+                <div class="masonry-item masonry-2x2 masonry-featured" data-preview-id="port-of-jumanah">
                     <script type="application/json" data-for="port-of-jumanah">
                     {
                         "title": "Port of Jumanah",
@@ -2197,6 +2135,48 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Kanna & Lia -->
+                <div class="masonry-item masonry-3x2" data-href="https://ymne22.itch.io/kanna-and-lia-the-witch">
+                    <video data-lazy-src="Assets/Video/Game/Kanna_Hero.webm" loop muted playsinline preload="none"></video>
+                    <div class="masonry-overlay">
+                        <h4>Kanna and Lia the Witch</h4>
+                        <div class="masonry-info">
+                            <span>Game Jam • Self Development</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maid of Sker VR -->
+                <div class="masonry-item masonry-3x2" data-preview-id="maid-of-sker-vr">
+                    <script type="application/json" data-for="maid-of-sker-vr">
+                    {
+                        "title": "Maid of Sker VR",
+                        "status": "Released",
+                        "description": "Maid of Sker VR is a survival horror game, set in a remote hotel with a gory and macabre history from Welsh folklore. Brave the nightmares of the Quiet Ones. Do not panic…don't even breathe!",
+                        "heroImage": "Assets/Images/Game/MaidOfSkerVR_Hero.webp",
+                        "heroImageDepth": "Assets/Images/Game/MaidOfSkerVR_Hero_Depth.webp",
+                        "logoImage": "Assets/Images/Game/MaidOfSkerVR_Logo.webp",
+                        "platforms": ["playstation", "meta", "steam"],
+                        "engine": "Unity Engine 6.0 HDRP & URP",
+                        "publisher": "Wales Interactive",
+                        "developer": "Wales Interactive",
+                        "role": "Technical Artist",
+                        "releaseDate": "17 Mar 2026",
+                        "link": "https://www.walesinteractive.com/maidofskervr"
+                    }
+                    </script>
+                    <img src="Assets/Images/Game/MaidOfSkerVR_Hero.webp" alt="Maid of Sker VR" draggable="false" loading="lazy">
+                    <div class="masonry-overlay">
+                        <h4>Maid of Sker VR</h4>
+                        <div class="masonry-info">
+                            <span>Released • Technical Artist</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -2430,7 +2410,32 @@
             </div>
             
             <div class="content-layer masonry-grid">
-                <!-- Background Animation - Featured 2x2 -->
+                
+                <!-- Holo-Attack Opening -->
+                <div class="masonry-item masonry-3x2" data-media="video" data-src="Assets/Video/Art/Myth.webm" data-title="Holo-Attack Opening Layout">
+                    <video data-lazy-src="Assets/Video/Art/Myth.webm" loop muted playsinline preload="none"></video>
+                    <div class="masonry-overlay">
+                        <h4>Holo-Attack Opening (2024)</h4>
+                        <div class="masonry-info">
+                            <span>Animation</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summer Animation -->
+                <div class="masonry-item masonry-3x2" data-media="video" data-src="Assets/Video/Art/Summer23.webm" data-title="Summer Animation">
+                    <video data-lazy-src="Assets/Video/Art/Summer23.webm" loop muted playsinline preload="none"></video>
+                    <div class="masonry-overlay">
+                        <h4>Summer Animation (2023)</h4>
+                        <div class="masonry-info">
+                            <span>Animation</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Background Animation -->
                 <div class="masonry-item masonry-2x2 masonry-featured" data-media="video" data-src="Assets/Video/Art/BG1.webm" data-title="Background Animation Practice">
                     <video data-lazy-src="Assets/Video/Art/BG1.webm" loop muted playsinline preload="none"></video>
                     <div class="masonry-overlay">
@@ -2442,31 +2447,7 @@
                     </div>
                 </div>
 
-                <!-- Holo-Attack Opening - 2x1 -->
-                <div class="masonry-item masonry-2x1" data-media="video" data-src="Assets/Video/Art/Myth.webm" data-title="Holo-Attack Opening Layout">
-                    <video data-lazy-src="Assets/Video/Art/Myth.webm" loop muted playsinline preload="none"></video>
-                    <div class="masonry-overlay">
-                        <h4>Holo-Attack Opening (2024)</h4>
-                        <div class="masonry-info">
-                            <span>Animation</span>
-                            <button class="view-btn">View</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Summer Animation - 2x1 -->
-                <div class="masonry-item masonry-2x1" data-media="video" data-src="Assets/Video/Art/Summer23.webm" data-title="Summer Animation">
-                    <video data-lazy-src="Assets/Video/Art/Summer23.webm" loop muted playsinline preload="none"></video>
-                    <div class="masonry-overlay">
-                        <h4>Summer Animation (2023)</h4>
-                        <div class="masonry-info">
-                            <span>Animation</span>
-                            <button class="view-btn">View</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gura Loop - 2x2 -->
+                <!-- Gura Loop -->
                 <div class="masonry-item masonry-2x2" data-media="video" data-src="Assets/Video/Art/Gura2.webm" data-title="Gura Loop Animation">
                     <video data-lazy-src="Assets/Video/Art/Gura2.webm" loop muted playsinline preload="none"></video>
                     <div class="masonry-overlay">
@@ -2478,7 +2459,7 @@
                     </div>
                 </div>
 
-                <!-- CSM Practice - 1x2 -->
+                <!-- CSM Practice -->
                 <div class="masonry-item masonry-2x2" data-media="video" data-src="Assets/Video/Art/Chenso.webm" data-title="Animation Practice - CSM">
                     <video data-lazy-src="Assets/Video/Art/Chenso.webm" loop muted playsinline preload="none"></video>
                     <div class="masonry-overlay">
@@ -2490,8 +2471,8 @@
                     </div>
                 </div>
 
-                <!-- Gura Animation - 1x2 -->
-                <div class="masonry-item masonry-1x2" data-media="video" data-src="Assets/Video/Art/Gura1.webm" data-title="Gura Animation">
+                <!-- Gura Animation -->
+                <div class="masonry-item masonry-2x2" data-media="video" data-src="Assets/Video/Art/Gura1.webm" data-title="Gura Animation">
                     <video data-lazy-src="Assets/Video/Art/Gura1.webm" loop muted playsinline preload="none"></video>
                     <div class="masonry-overlay">
                         <h4>Gura Animation</h4>
@@ -2502,8 +2483,19 @@
                     </div>
                 </div>
 
+                <!-- Chenso -->
+                <div class="masonry-item masonry-3x2" data-media="image" data-src="Assets/Images/Art/Chenso.jpg" data-title="Chenso">
+                    <img src="Assets/Images/Art/Chenso.jpg" alt="Chenso" draggable="false" loading="lazy">
+                    <div class="masonry-overlay">
+                        <h4>Chainsaw Man (Fanart)</h4>
+                        <div class="masonry-info">
+                            <span>Drawing</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
                 
-                <!-- Urara - 1x2 -->
+                <!-- Urara -->
                 <div class="masonry-item masonry-1x2" data-media="image" data-src="Assets/Images/Art/Urara.jpg" data-title="Urara">
                     <img src="Assets/Images/Art/Urara.jpg" alt="Haru Urara" draggable="false" loading="lazy">
                     <div class="masonry-overlay">
@@ -2515,31 +2507,43 @@
                     </div>
                 </div>
 
-                <!-- Holo-Attack Loading - 2x1 -->
-                <div class="masonry-item masonry-2x1" data-media="video" data-src="Assets/Video/Art/HL-ATK-Load.webm" data-title="Holo-Attack Loading Animation">
-                    <video data-lazy-src="Assets/Video/Art/HL-ATK-Load.webm" loop muted playsinline preload="none"></video>
+                <!-- Mei -->
+                <div class="masonry-item masonry-1x2" data-media="image" data-src="Assets/Images/Art/Mei.jpg" data-title="Mei Kinosaki">
+                    <img src="Assets/Images/Art/Mei.jpg" alt="Mei Kinosaki" draggable="false" loading="lazy">
                     <div class="masonry-overlay">
-                        <h4>Holo-Attack Loading</h4>
+                        <h4>Mei Kinosaki</h4>
                         <div class="masonry-info">
-                            <span>Animation</span>
+                            <span>Drawing</span>
                             <button class="view-btn">View</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Kanna & Lia Cut 4 - 1x2 -->
-                <div class="masonry-item masonry-1x2" data-media="video" data-src="Assets/Video/Art/KnL.webm" data-title="Kanna & Lia Animation Cut 4">
-                    <video data-lazy-src="Assets/Video/Art/KnL.webm" loop muted playsinline preload="none"></video>
+                <!-- HL-ATK Sprite -->
+                <div class="masonry-item masonry-3x2" data-media="image" data-src="Assets/Images/Art/HL-ATK-Sprite.jpg" data-title="Holo-Attack Character Sprite">
+                    <img src="Assets/Images/Art/HL-ATK-Sprite.jpg" alt="Holo-Attack Character Sprite" draggable="false" loading="lazy">
                     <div class="masonry-overlay">
-                        <h4>Kanna & Lia Cut 4</h4>
+                        <h4>Holo-Attack Sprites</h4>
                         <div class="masonry-info">
-                            <span>Animation</span>
+                            <span>Character Art</span>
                             <button class="view-btn">View</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- KnL Sprite - 1x2 -->
+                <!-- HL-ATK Concept 1 -->
+                <div class="masonry-item masonry-2x2" data-media="image" data-src="Assets/Images/Art/HL-ATK-Concept1.jpg" data-title="Holo-Attack Concept">
+                    <img src="Assets/Images/Art/HL-ATK-Concept1.jpg" alt="Holo-Attack Concept" draggable="false" loading="lazy">
+                    <div class="masonry-overlay">
+                        <h4>HL-ATK Concept 1</h4>
+                        <div class="masonry-info">
+                            <span>Concept</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KnL Sprite -->
                 <div class="masonry-item masonry-1x2" data-media="image" data-src="Assets/Images/Art/KnL-Sprite.jpg" data-title="Kanna & Lia Character Sprite">
                     <img src="Assets/Images/Art/KnL-Sprite.jpg" alt="Kanna & Lia Character Sprite" draggable="false" loading="lazy">
                     <div class="masonry-overlay">
@@ -2551,20 +2555,20 @@
                     </div>
                 </div>
 
-                <!-- HL-ATK Sprite - 2x1 -->
-                <div class="masonry-item masonry-2x1" data-media="image" data-src="Assets/Images/Art/HL-ATK-Sprite.jpg" data-title="Holo-Attack Character Sprite">
-                    <img src="Assets/Images/Art/HL-ATK-Sprite.jpg" alt="Holo-Attack Character Sprite" draggable="false" loading="lazy">
+                <!-- Holo-Attack Loading -->
+                <div class="masonry-item masonry-2x2" data-media="video" data-src="Assets/Video/Art/HL-ATK-Load.webm" data-title="Holo-Attack Loading Animation">
+                    <video data-lazy-src="Assets/Video/Art/HL-ATK-Load.webm" loop muted playsinline preload="none"></video>
                     <div class="masonry-overlay">
-                        <h4>Holo-Attack Sprites</h4>
+                        <h4>Holo-Attack Loading</h4>
                         <div class="masonry-info">
-                            <span>Character Art</span>
+                            <span>Animation</span>
                             <button class="view-btn">View</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- HL-ATK Concept 2 - 1x1 -->
-                <div class="masonry-item masonry-1x1" data-media="image" data-src="Assets/Images/Art/HL-ATK-Concept2.jpg" data-title="Holo-Attack Concept">
+                <!-- HL-ATK Concept 2 -->
+                <div class="masonry-item masonry-2x2" data-media="image" data-src="Assets/Images/Art/HL-ATK-Concept2.jpg" data-title="Holo-Attack Concept">
                     <img src="Assets/Images/Art/HL-ATK-Concept2.jpg" alt="Holo-Attack Concept" draggable="false" loading="lazy">
                     <div class="masonry-overlay">
                         <h4>HL-ATK Concept 2</h4>
@@ -2575,18 +2579,18 @@
                     </div>
                 </div>
 
-                <!-- HL-ATK Concept 1 - 1x1 -->
-                <div class="masonry-item masonry-1x1" data-media="image" data-src="Assets/Images/Art/HL-ATK-Concept1.jpg" data-title="Holo-Attack Concept">
-                    <img src="Assets/Images/Art/HL-ATK-Concept1.jpg" alt="Holo-Attack Concept" draggable="false" loading="lazy">
+                
+                <!-- Kanna & Lia Cut 4 -->
+                <div class="masonry-item masonry-1x2" data-media="video" data-src="Assets/Video/Art/KnL.webm" data-title="Kanna & Lia Animation Cut 4">
+                    <video data-lazy-src="Assets/Video/Art/KnL.webm" loop muted playsinline preload="none"></video>
                     <div class="masonry-overlay">
-                        <h4>HL-ATK Concept 1</h4>
+                        <h4>Kanna & Lia Cut 4</h4>
                         <div class="masonry-info">
-                            <span>Concept</span>
+                            <span>Animation</span>
                             <button class="view-btn">View</button>
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </section>
@@ -2768,7 +2772,7 @@
                     HeroCRT.start();
 
                 }, 400); 
-            }, 2000);
+            }, 400);
         });
 
         // --- HERO CRT WEGL LOGIC ---
@@ -2922,7 +2926,7 @@
                             if (bootProgress < 0.05) {
                                 // Intense thin horizontal line gathering power
                                 float intensity = smoothstep(0.01, 0.0, abs(vUv.y - 0.5)) * (bootProgress / 0.05);
-                                col = mix(vec3(0.0), vec3(1.0), intensity);
+                                col = mix(vec3(0.0), vec3(0.4), intensity);
                             } else {
                                 // Screen flash and fade quickly
                                 float flash = smoothstep(0.3, 0.05, bootProgress);
@@ -3839,6 +3843,66 @@
                 }
             }
         });
+
+        window.hasLaunched = false;
+        function launchPortfolio() {
+            if (window.hasLaunched) return;
+            window.hasLaunched = true;
+
+            const tvFlash = document.createElement('div');
+            // Full dark background exactly like the other sections
+            tvFlash.className = 'fixed inset-0 z-[9999] pointer-events-none transition-opacity duration-150 opacity-0 bg-[#050505]';
+            
+            const noiseBg = `background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size: 128px 128px; will-change: background-position;`;
+
+            tvFlash.innerHTML = `
+                <!-- Base Static -->
+                <div class="absolute inset-0 opacity-30 pointer-events-none animate-tv-noise mix-blend-screen" style="${noiseBg}"></div>
+                
+                <!-- Red Tracking Glitch -->
+                <div class="absolute inset-0 mix-blend-screen opacity-70 pointer-events-none" style="animation: text-glitch-1 0.25s infinite linear alternate-reverse;">
+                    <div class="w-full h-full animate-tv-noise shadow-[inset_0_0_100px_rgba(255,0,0,0.4)]" style="${noiseBg}"></div>
+                </div>
+                
+                <!-- Cyan Tracking Glitch -->
+                <div class="absolute inset-0 mix-blend-screen opacity-70 pointer-events-none" style="animation: text-glitch-2 0.35s infinite linear alternate-reverse;">
+                    <div class="w-full h-full animate-tv-noise shadow-[inset_0_0_100px_rgba(0,255,255,0.4)]" style="${noiseBg}"></div>
+                </div>
+
+                <!-- CRT Scanlines -->
+                <div class="absolute inset-0 opacity-90 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none z-10"></div>
+                
+                <!-- CRT Vignette -->
+                <div class="hero-crt-vignette z-20"></div>
+            `;
+
+            document.body.appendChild(tvFlash);
+
+            // Fade in the fizzle
+            requestAnimationFrame(() => {
+                tvFlash.style.opacity = '1';
+                
+                // Hold the glitch
+                setTimeout(() => {
+                    const hero = document.getElementById('hero');
+                    if(hero) hero.style.display = 'none';
+
+                    const scroller = document.getElementById('main-scroller');
+                    scroller.style.overflowY = 'scroll';
+                    
+                    const homeBtn = document.querySelector('.dock-icon[data-target="hero"]');
+                    if(homeBtn) homeBtn.style.display = 'none';
+
+                    scroller.scrollTop = 0;
+
+                    // Fade out glitch
+                    tvFlash.style.transition = 'opacity 0.6s ease-out';
+                    tvFlash.style.opacity = '0';
+                    
+                    setTimeout(() => tvFlash.remove(), 600);
+                }, 400); // Glitch duration
+            });
+        }
     </script>
 </body>
 </html>
