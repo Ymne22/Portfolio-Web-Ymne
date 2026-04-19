@@ -1742,7 +1742,7 @@
     <main id="main-scroller">
 
         <!-- HERO -->
-        <section id="hero" class="fixed-section flex items-center justify-center cursor-pointer transition-opacity duration-150 hover:opacity-80" data-index="0" onclick="launchPortfolio()">
+        <section id="hero" class="fixed-section flex items-center justify-center cursor-pointer transition-opacity duration-150 hover:opacity-80 grayscale" data-index="0" onclick="launchPortfolio()">
             <canvas id="hero-crt-canvas"></canvas>
 
             <div class="overlay-layer bg-[radial-gradient(circle_at_center,rgba(5,5,5,0)_0%,#050505_100%)]"></div>
@@ -1750,9 +1750,10 @@
             
             <div class="content-layer max-w-7xl w-full px-6 flex flex-col items-center justify-center text-center h-full mx-auto relative z-10 pointer-events-none">
                 <div class="flex flex-col items-center gap-2 mt-20 animate-[pulse_3s_ease-in-out_infinite]">
-                    <p class="text-zinc-400 font-mono text-sm md:text-base tracking-[0.5em] uppercase pl-2">Welcome</p>
-                    <span class="text-2xl md:text-4xl font-black font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] pl-2 md:pl-3">
-                        CLICK TO START
+                    <p class="text-zinc-400 font-mono text-base md:text-xl tracking-[0.5em] uppercase pl-2">Welcome</p>
+                    <span class="text-4xl md:text-4xl lg:text-5xl font-black font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] pl-2 md:pl-3">
+                        <span class="md:hidden">TAP TO START</span>
+                        <span class="hidden md:inline">CLICK TO START</span>
                     </span>
                 </div>
             </div>
@@ -2543,18 +2544,6 @@
                     </div>
                 </div>
 
-                <!-- KnL Sprite -->
-                <div class="masonry-item masonry-1x2" data-media="image" data-src="Assets/Images/Art/KnL-Sprite.jpg" data-title="Kanna & Lia Character Sprite">
-                    <img src="Assets/Images/Art/KnL-Sprite.jpg" alt="Kanna & Lia Character Sprite" draggable="false" loading="lazy">
-                    <div class="masonry-overlay">
-                        <h4>Kanna & Lia Sprites</h4>
-                        <div class="masonry-info">
-                            <span>Character Art</span>
-                            <button class="view-btn">View</button>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Holo-Attack Loading -->
                 <div class="masonry-item masonry-2x2" data-media="video" data-src="Assets/Video/Art/HL-ATK-Load.webm" data-title="Holo-Attack Loading Animation">
                     <video data-lazy-src="Assets/Video/Art/HL-ATK-Load.webm" loop muted playsinline preload="none"></video>
@@ -2587,6 +2576,18 @@
                         <h4>Kanna & Lia Cut 4</h4>
                         <div class="masonry-info">
                             <span>Animation</span>
+                            <button class="view-btn">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KnL Sprite -->
+                <div class="masonry-item masonry-1x2" data-media="image" data-src="Assets/Images/Art/KnL-Sprite.jpg" data-title="Kanna & Lia Character Sprite">
+                    <img src="Assets/Images/Art/KnL-Sprite.jpg" alt="Kanna & Lia Character Sprite" draggable="false" loading="lazy">
+                    <div class="masonry-overlay">
+                        <h4>Kanna & Lia Sprites</h4>
+                        <div class="masonry-info">
+                            <span>Character Art</span>
                             <button class="view-btn">View</button>
                         </div>
                     </div>
@@ -2772,7 +2773,7 @@
                     HeroCRT.start();
 
                 }, 400); 
-            }, 400);
+            }, 2000);
         });
 
         // --- HERO CRT WEGL LOGIC ---
@@ -2926,7 +2927,7 @@
                             if (bootProgress < 0.05) {
                                 // Intense thin horizontal line gathering power
                                 float intensity = smoothstep(0.01, 0.0, abs(vUv.y - 0.5)) * (bootProgress / 0.05);
-                                col = mix(vec3(0.0), vec3(0.4), intensity);
+                                col = mix(vec3(0.0), vec3(1.0), intensity);
                             } else {
                                 // Screen flash and fade quickly
                                 float flash = smoothstep(0.3, 0.05, bootProgress);
